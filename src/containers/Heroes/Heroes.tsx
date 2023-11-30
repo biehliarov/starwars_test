@@ -1,8 +1,8 @@
+import { ThunkDispatch } from "@reduxjs/toolkit";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../app/store";
-import { fetchHeroes } from "../../features/heroes/heroesSlice";
-import { ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchHeroes } from "../../store/slices/heroesSlice";
+import { RootState } from "../../store/store";
 import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import Pagination from "../../components/Pagination";
@@ -15,9 +15,6 @@ const Heroes: React.FC = () => {
   );
 
   const [searchValue, setSearchValue] = useState("");
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(
-    null
-  );
 
   function getUrl(url: string) {
     const parts = url.split("/");
@@ -30,20 +27,19 @@ const Heroes: React.FC = () => {
   }
 
   useEffect(() => {
-    if (searchTimeout) {
-      clearTimeout(searchTimeout);
-    }
-    const timeout = setTimeout(() => {
+    if (status === "idle") {
       dispatch(fetchHeroes({ page: currentPage, searchValue }));
-    }, 500);
-    setSearchTimeout(timeout);
-  }, [dispatch, searchValue]);
+    }
+  }, [dispatch, status, currentPage, searchValue]);
 
   const handlePageChange = (page: number) => {
-    dispatch(fetchHeroes({ page, searchValue }));
+    if (page !== currentPage) {
+      dispatch(fetchHeroes({ page, searchValue }));
+    }
   };
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
+    dispatch(fetchHeroes({ page: 1, searchValue }));
   };
 
   return (

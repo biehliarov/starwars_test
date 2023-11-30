@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { RootState } from "../../app/store";
-import { fetchHeroById } from "../../features/heroes/heroesSlice";
+import { RootState } from "../../store/store";
+import { fetchHeroById } from "../../store/slices/heroesSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import Loader from "../../components/Loader";
 

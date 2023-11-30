@@ -1,15 +1,10 @@
-import {
-  HashRouter,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { Provider } from "react-redux";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
+import HeroInfo from "./containers/Heroes/HeroInfo";
 import Heroes from "./containers/Heroes/Heroes";
 import Topbar from "./layout/Topbar";
-import { Provider } from "react-redux";
-import store from "./app/store";
-import HeroInfo from "./containers/Heroes/HeroInfo";
+import store from "./store/store";
 
 function App() {
   return (

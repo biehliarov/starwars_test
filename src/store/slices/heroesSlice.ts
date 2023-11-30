@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import * as api from "./api";
 
 interface Hero {
   birth_year: string;
@@ -46,21 +46,16 @@ interface FetchHeroesPayload {
 export const fetchHeroById = createAsyncThunk(
   "heroes/fetchHeroById",
   async (id: number) => {
-    const response = await axios.get(`https://swapi.dev/api/people/${id}`);
-    return response.data as Hero;
+    const response = await api.fetchHeroById(id);
+    return response as Hero;
   }
 );
 
 export const fetchHeroes = createAsyncThunk(
   "heroes/fetchHeroes",
   async ({ page, searchValue }: FetchHeroesPayload) => {
-    const response = await axios.get(
-      `https://swapi.dev/api/people/?page=${page}&search=${searchValue}`
-    );
-    return {
-      heroes: response.data.results,
-      totalPage: Math.ceil(response.data.count / 10),
-    };
+    const response = await api.fetchHeroes(page, searchValue);
+    return response;
   }
 );
 
