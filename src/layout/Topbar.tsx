@@ -1,9 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../logo.svg";
-import { Disclosure } from "@headlessui/react";
 import classNames from "classnames";
+
+import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+
+import logo from "../logo.svg";
 
 const Topbar = () => {
   const navigation = [{ name: "Home", href: "/", current: true }];

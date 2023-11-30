@@ -8,9 +8,9 @@ export const fetchHeroById = async (id: number) => {
 };
 
 export const fetchHeroes = async (page: number, searchValue?: string) => {
-  const response = await axios.get(
-    `${BASE_URL}/?page=${page}&search=${searchValue}`
-  );
+  const response = await axios.get(`${BASE_URL}/`, {
+    params: { page, search: searchValue },
+  });
   return {
     heroes: response.data.results,
     totalPage: Math.ceil(response.data.count / 10),
